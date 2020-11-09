@@ -53,12 +53,12 @@ public class SportSocialNetworkUserImpl<U extends User> extends SocialNetworkUse
      * TODO: initialize properly these sports
      */
     static {
-        SOCCER = null;
-        F1 = null;
-        MOTOGP = null;
-        VOLLEY = null;
-        BASKET = null;
-        BIKE = null;
+        SOCCER = new Sport("Soccer");
+        F1 = new Sport("F1");
+        MOTOGP = new Sport("Moto GP");
+        VOLLEY = new Sport("Volley");
+        BASKET = new Sport("Basket");
+        BIKE = new Sport("Bike");
     }
 
     /**
@@ -114,7 +114,7 @@ public class SportSocialNetworkUserImpl<U extends User> extends SocialNetworkUse
      */
     // TODO
     public void addSport(final Sport sport) {
-
+    	sports.add(sport);
     }
 
     /**
@@ -126,7 +126,7 @@ public class SportSocialNetworkUserImpl<U extends User> extends SocialNetworkUse
      */
     // TODO
     public boolean hasSport(final Sport s) {
-        return false;
+        return sports.contains(s);
     }
 
     /*
@@ -142,9 +142,29 @@ public class SportSocialNetworkUserImpl<U extends User> extends SocialNetworkUse
          * Redefine equals so that two sports are equal only if they feature the
          * very same name. Remember that you must also redefine hashCode()!
          */
+    	
+    	private final String name;
+    	
+    	public Sport(final String name) {
+    		this.name = name;
+    	}
+    	
         @Override
-        public boolean equals(final Object o) {
-            return false;
-        }
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + ((name == null) ? 0 : name.hashCode());
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if(obj.getClass() != obj) {
+				return false;
+			}
+			return this.name.equals(((Sport)obj).name);
+		}
+        
+        
     }
 }
