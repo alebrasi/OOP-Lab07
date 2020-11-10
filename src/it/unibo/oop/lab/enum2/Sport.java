@@ -3,6 +3,7 @@
  */
 package it.unibo.oop.lab.enum2;
 
+import it.unibo.oop.lab.enum2.Place;
 /**
  * Represents an enumeration for declaring sports.
  * 
@@ -37,7 +38,42 @@ public enum Sport {
      * - soccer
      * 
      */
-
+	
+	BASKET(Place.INDOOR, 69, "Basket"),
+	VOLLEY(Place.INDOOR, 69, "Volley"),
+	TENNIS(Place.INDOOR, 2, "Tennis"),
+	BIKE(Place.OUTDOOR, 1, "Bike"),
+	F1(Place.OUTDOOR, 1, "F1"),
+	MOTOGP(Place.OUTDOOR, 1, "MotoGP"),
+	SOCCER(Place.OUTDOOR, 469, "Soccer");
+	
+	
+	private final Place place;
+	private final int noTeamMembers;
+	private final String actualName;
+	
+	private Sport(final Place place, final int noTeamMembers, final String actualName) {
+		this.place = place;
+		this.noTeamMembers = noTeamMembers;
+		this.actualName = actualName;
+	}
+	
+	public boolean isIndividualSport() {
+		return this.noTeamMembers == 1;
+	}
+	
+	public boolean isIndoorSport() {
+		return this.place.equals(Place.INDOOR);		
+	}
+	
+	public Place getPlace() {
+		return this.place;
+	}
+	
+	public String toString() {
+		return "The sport " + this.actualName + " is practiced " + 
+				this.place.toString() + " and the team is composed of " + this.noTeamMembers + " members";
+	}
     /*
      * TODO
      * 
