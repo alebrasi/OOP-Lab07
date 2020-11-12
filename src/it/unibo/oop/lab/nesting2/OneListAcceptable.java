@@ -13,36 +13,30 @@ public class OneListAcceptable<T> implements Acceptable<T> {
     
 	@Override
 	public Acceptor<T> acceptor() {
-		return new AcceptorImpl();
-	}
-	
-	private class AcceptorImpl implements Acceptor<T>{
-	    
-	    private int index;
-	    
-	    private AcceptorImpl(){
-	        index = 0;
-	    }
-	    
-        @Override
-        public void accept(T newElement) throws ElementNotAcceptedException {
-            if(indexIsInRange() && list.get(index).equals(newElement)) {
-                index++;
-            }else {
-                throw new ElementNotAcceptedException(newElement);
-            }
-        }
-        
-        private boolean indexIsInRange() {
-            return index < list.size(); 
-        }
+		return new Acceptor<T>() {
 
-        @Override
-        public void end() throws EndNotAcceptedException {
-            if(indexIsInRange()) {
-                throw new EndNotAcceptedException();
-            }
-        }
-	    
+			private int index;
+		    
+	        @Override
+	        public void accept(T newElement) throws ElementNotAcceptedException {
+	            if(indexIsInRange() && list.get(index).equals(newElement)) {
+	                index++;
+	            }else {
+	                throw new ElementNotAcceptedException(newElement);
+	            }
+	        }
+	        
+	        private boolean indexIsInRange() {
+	            return index < list.size(); 
+	        }
+
+	        @Override
+	        public void end() throws EndNotAcceptedException {
+	            if(indexIsInRange()) {
+	                throw new EndNotAcceptedException();
+	            }
+	        }
+			
+		};
 	}
 }
